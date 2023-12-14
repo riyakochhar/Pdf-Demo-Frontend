@@ -43,7 +43,7 @@ function App() {
     formData.append("file", file);
 
     try {
-      const response = await fetch("http://localhost:5000/upload-files", {
+      const response = await fetch("/upload-files", {
         method: "POST",
         body: formData,
       });
@@ -65,7 +65,7 @@ function App() {
   };
 
   const showPdf = (pdf) => {
-    setPdfFile(`http://localhost:5000/files/${pdf}`);
+    setPdfFile(`/files/${pdf}`);
   };
 
   async function deletePdf(e, data) {
@@ -78,15 +78,12 @@ function App() {
     }
 
     try {
-      const response = await fetch(
-        `http://localhost:5000/delete-file/${data._id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`/delete-file/${data._id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Failed to delete PDF");
